@@ -1,0 +1,43 @@
+{% extends 'poll/master.html' %}
+{% block title %}
+<title>ورود</title>
+{% endblock %}
+
+    
+    {% block body %} 
+<div class= " row justify-content-center">
+<div class="col-3 align-self-center text-center ">
+
+    {% if form.errors %}
+        <p>نام کاربری یا کلمه عبور اشتباه وارد شده است. لطفا مجدد سعی نمایید</p>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
+        {% else %}
+            <p>لطفا ابتدا وارد شوید.</p>
+        {% endif %}
+    {% endif %}
+    
+    <form method='post' action='{% url 'login' %}'>
+        {% csrf_token %}
+        <table class= 'small sw-light table  text-center'>
+            <tr >
+                <td class ="py-3"> {{ form.username.label_tag }} </td>
+                <td> {{ form.username }} </td>
+            </tr>
+            <tr >
+                <td class ="py-3"> {{ form.password.label_tag }} </td>
+                <td> {{ form.password }} </td>
+            </tr>
+        </table>
+        <input type='submit' value='ورود'>
+        <input type='hidden' name='next' value= '{{ next }}'>
+
+    </form>
+</div>
+</div>
+
+{%endblock%}

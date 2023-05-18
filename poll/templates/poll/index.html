@@ -1,0 +1,26 @@
+{% extends "poll/master.html" %}
+{% block title %}
+<title>لیست نظرسنجی ها</title>
+{% endblock %}
+
+    
+    {% block body %}        
+        
+        
+            {% if latest_question_list %}
+            <ul>
+                {% for question in latest_question_list %}
+                    <li class="m-3">
+                        <a class="link-success" href="{% url 'poll:detail' question.id %}">{{question.question_text}}</a>
+                    </li>
+                {% endfor %}
+            </ul>       
+            {% else %}
+                <p>هیچ پرسشی موجود نیست</p>
+            {% endif %}
+                
+                
+        
+   {% endblock %}
+
+    

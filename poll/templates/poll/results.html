@@ -1,0 +1,24 @@
+{% extends 'poll/master.html' %}
+{% block title %}
+        <title> نتایج </title>
+        {% endblock title %}
+
+   {% block body %}
+
+   <legend class="h5">_ {{question.question_text}} </legend>
+{% if user.is_authenticated %}
+    <div class="row my-2 mx-4">
+        <div class="col-5 ">
+        {% for choise in question.choise_set.all  %}
+            <li>{{choise.choise_text}} -- {{choise.votes}} رای</li>
+        {% endfor %}
+        </div>
+    </div>
+
+    <a class="link-success" href={% url 'poll:detail' question.id %}>ثبت رای مجدد؟</a>
+{% else %}
+    <p> لطفا برای مشاهده نتایج ابتدا از 
+        <a href="{% url 'login' %}?next={{ request.path }}">اینجا </a> وارد شوید.
+    </P>
+{% endif %}
+{% endblock body %}
